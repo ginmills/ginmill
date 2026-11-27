@@ -1,0 +1,140 @@
+version: "2"
+
+run:
+  timeout: 5m
+  tests: true
+
+formatters:
+  enable:
+    - gofumpt
+    - goimports
+  settings:
+    goimports:
+      local-prefixes:
+        - github.com/ginmills/ginmill
+
+linters:
+  default: none
+  enable:
+    # 1. Correctness & Bug Prevention
+    - govet
+    - staticcheck
+    - ineffassign
+    - unused
+    - nilerr
+    - nilnil
+    - bodyclose
+    - noctx
+    - contextcheck
+    - durationcheck
+    - exhaustive
+
+    # 2. Error Handling (aligns with golang-error-handling)
+    - errcheck
+    - errorlint
+    - errname
+
+    # 3. Concurrency (aligns with golang-concurrency)
+    - containedctx
+    - fatcontext
+
+    # 4. Modern Go (aligns with use-modern-go & go.mod)
+    - modernize
+    - copyloopvar
+
+    # 5. Testing & TDD (aligns with golang-testing & test-driven-development)
+    - thelper
+    - tparallel
+    - testifylint
+
+    # 6. Readability & Architecture (5-Axes Review)
+    - revive
+    - gocritic
+    - gocyclo
+    - misspell
+    - unconvert
+    - unparam
+    - nolintlint
+
+    # 7. Security (5-Axes Review)
+    - gosec
+
+    # 8. Performance (5-Axes Review)
+    - prealloc
+    - makezero
+    - perfsprint
+
+  settings:
+    govet:
+      enable-all: true
+      disable:
+        - fieldalignment
+    errcheck:
+      check-type-assertions: true
+      check-blank: true
+    errorlint:
+      errorf: true
+      asserts: true
+      comparison: true
+    exhaustive:
+      default-signifies-exhaustive: true
+    gocyclo:
+      min-complexity: 15
+    gocritic:
+      enabled-tags:
+        - diagnostic
+        - performance
+        - style
+      disabled-checks:
+        - hugeParam
+        - rangeValCopy
+    nolintlint:
+      require-explanation: true
+      require-specific: true
+    revive:
+      rules:
+        - name: blank-imports
+        - name: context-as-argument
+        - name: context-keys-type
+        - name: dot-imports
+        - name: early-return
+        - name: empty-block
+        - name: error-naming
+        - name: error-return
+        - name: error-strings
+        - name: errorf
+        - name: exported
+        - name: increment-decrement
+        - name: indent-error-flow
+        - name: package-comments
+          disabled: true
+        - name: range
+        - name: receiver-naming
+        - name: superfluous-else
+        - name: time-naming
+        - name: unexported-return
+        - name: unreachable-code
+        - name: unused-parameter
+        - name: var-declaration
+        - name: var-naming
+
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - std-error-handling
+    rules:
+      - path: _test\.go
+        linters:
+          - gocyclo
+          - gosec
+          - prealloc
+          - unparam
+      - path: _test\.go
+        text: "shadow:"
+        linters:
+          - govet
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
