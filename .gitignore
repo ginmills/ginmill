@@ -1,1 +1,8 @@
 oryxBuildBinary
+
+# Coverage & Go workspace
+.coverage/
+coverage.out
+coverage.html
+go.work
+go.work.sum

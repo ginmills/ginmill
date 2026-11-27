@@ -1,0 +1,15 @@
+schema: spec-driven
+
+context: |
+  Go project (`github.com/ginmills/ginmill`) following OpenSpec-Led Go TDD.
+  Align Go code with `go.mod` via `use-modern-go`, and apply `golang-testing`, `golang-design-patterns`, `golang-error-handling`, and `golang-concurrency`.
+
+operations:
+  apply:
+    guidance:
+      - Strictly follow `test-driven-development` (RED -> GREEN -> REFACTOR) for every task in `tasks.md`.
+      - Run `make test-race` (full `go test -race ./...`) for every GREEN verification.
+  archive:
+    guidance:
+      - Run `make check` (`fmt-check`, `vet`, `lint`, `test-coverage`) before archiving.
+      - Run `code-review-and-quality` (5-axes review) against the full `git diff` and resolve all Critical/High findings before archiving.

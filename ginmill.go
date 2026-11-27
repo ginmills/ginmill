@@ -34,7 +34,6 @@ func (f *Features) GetRoutes() gin.RoutesInfo {
 	r := make(gin.RoutesInfo, len(f.routes))
 	copy(r, f.routes)
 	return r
-
 }
 
 // With pre-defined Features for ginmill
